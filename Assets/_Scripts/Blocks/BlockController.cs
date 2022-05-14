@@ -8,9 +8,9 @@ public class BlockController : MonoBehaviour
     
     
     [Header("Positions")]
-    public int Rail;
-    private Vector3[] StartRailPositions;
-    private Vector3[] EndRailPositions;
+    [Range(0, 4)] public int Rail;
+    public Vector3[] StartRailPositions;
+    public Vector3[] EndRailPositions;
 
     [Header("Stats")]
     public float Speed;
@@ -29,11 +29,19 @@ public class BlockController : MonoBehaviour
 
     void Start()
     {
-        
+        // Set starting point
+        transform.position = StartRailPositions[Rail];
     }
 
     void Update()
     {
-        
+        if (transform.position == EndRailPositions[Rail]) return;
+        Movement();
+    }
+
+    private void Movement()
+    {
+        // Move block
+        transform.position = Vector3.MoveTowards(transform.position, EndRailPositions[Rail], Speed * Time.deltaTime);
     }
 }
