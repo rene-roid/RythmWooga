@@ -20,6 +20,7 @@ public class BlockController : MonoBehaviour
 
     [Header("Animations")]
     public bool hasParticles = true;
+    public GameObject particles;
 
     [Header("Math")]
     public float TotalDistance; // Total distance between start and end positions
@@ -40,6 +41,7 @@ public class BlockController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        print("CACA");
         OnTrigger(other);
     }
 
@@ -47,6 +49,9 @@ public class BlockController : MonoBehaviour
     {
         // Set starting point
         transform.position = StartRailPositions[Rail];
+
+        // Setting particle systems
+        if (hasParticles) particles.SetActive(true);
     }
 
     public void OnUpdate()
