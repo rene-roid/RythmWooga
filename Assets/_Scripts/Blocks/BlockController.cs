@@ -9,17 +9,20 @@ public class BlockController : MonoBehaviour
     
     [Header("Positions")]
     [Range(0, 4)] public int Rail; // Set what rail the block is on
-    public Vector3[] StartRailPositions; // Positions
-    public Vector3[] EndRailPositions;
+    public Vector3[] StartRailPositions = new Vector3[5]; // Positions
+    public Vector3[] EndRailPositions = new Vector3[5];
 
     [Header("Stats")]
     public bool IsReturnable = false; // Is the block returnable
     [SerializeField] private bool isReturning = false; // Is the block returning
+
+    public bool IsJumpable = false;
     
     public float Speed; // Speed
 
     [Header("Animations")]
-    public bool hasParticles = true;
+    public bool HasParticles = true;
+    public bool AreParticlesOn = true;
     public GameObject particles;
 
     [Header("Math")]
@@ -39,7 +42,7 @@ public class BlockController : MonoBehaviour
         OnUpdate();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         print("CACA");
         OnTrigger(other);
@@ -51,7 +54,8 @@ public class BlockController : MonoBehaviour
         transform.position = StartRailPositions[Rail];
 
         // Setting particle systems
-        if (hasParticles) particles.SetActive(true);
+        if (HasParticles) if (AreParticlesOn) particles.SetActive(true);
+
     }
 
     public void OnUpdate()
@@ -60,7 +64,7 @@ public class BlockController : MonoBehaviour
         MathCalc();
     }
 
-    public void OnTrigger(Collider2D other)
+    public void OnTrigger(Collider other)
     {
         DetectHit(other);
     }
@@ -87,7 +91,7 @@ public class BlockController : MonoBehaviour
         if (transform.position == EndRailPositions[Rail])
         {
             // End Anim
-
+            Destroy(gameObject);
         }
     }
 
@@ -99,7 +103,7 @@ public class BlockController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, EndRailPositions[Rail], Speed * Time.deltaTime);
     }
 
-    private void DetectHit(Collider2D other)
+    private void DetectHit(Collider other)
     {
         print("VULBA");
         if (other.tag == "Player")
