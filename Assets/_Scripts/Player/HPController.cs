@@ -21,7 +21,8 @@ public class HPController : MonoBehaviour
 
     [Header("Health UI")]
     public Text HealthText;
-    public GameObject HealthBar;
+    public SpriteRenderer HealthBarBG;
+    public SpriteRenderer HealthBarFG;
 
     void Awake()
     {
@@ -34,22 +35,29 @@ public class HPController : MonoBehaviour
 
         Heal();
         Timers();
+
+        ChangeHealthBarSize();
     }
 
     #region Damage
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
+        print("TOCADO");
         if (other.tag == "Block")
         {
-            RecieveDamage(1);
+            print("UNDIDO");
+            RecieveDamage(1, other);
         }
     }
 
-    private void RecieveDamage(int damage)
+    private void RecieveDamage(int damage, Collider other)
     {
         // Cooldown between damage
-        if (_damageTimer <= DamageRate)
+        if (_damageTimer >= DamageRate)
         {
+            if (other.GetComponent<BlockController>().IsJumpable && !gameObject.GetComponent<RailMovement>().IsGrounded) return;
+            
+            ShowHealthBar();
             // Take damage
             _health -= damage;
 
@@ -73,8 +81,48 @@ public class HPController : MonoBehaviour
             }
         }
 
+        if (_health == MaxHealth) HideHeathBar();
+
         // Limit player health
         _health = Mathf.Clamp(_health, 0, MaxHealth);
+    }
+
+    #endregion
+
+    #region Health Bar UI 
+    // Turn up heath bar opacity
+    private void ShowHealthBar()
+    {
+        // Turn up health bar opacity
+        Color healthBarColor = HealthBarFG.color;
+        healthBarColor.a = 1;
+        HealthBarFG.color = healthBarColor;
+
+        Color healthBarBGColor = HealthBarBG.color;
+        healthBarBGColor.a = 1;
+        HealthBarBG.color = healthBarBGColor;
+    }
+
+    private void HideHeathBar()
+    {
+        // Turn down health bar opacity
+        Color healthBarColor = HealthBarFG.color;
+        healthBarColor.a = 0;
+        HealthBarFG.color = healthBarColor;
+
+        Color healthBarBGColor = HealthBarBG.color;
+        healthBarBGColor.a = 0;
+        HealthBarBG.color = healthBarBGColor;
+    }
+
+    // Change HealthBarFG size depending on health
+    private void ChangeHealthBarSize()
+    {
+        // Change health bar size
+        float healthBarSize = _health / MaxHealth;
+        healthBarSize = Mathf.Clamp(healthBarSize, 0, 0.9027298f);
+
+        HealthBarBG.transform.localScale = new Vector3(healthBarSize, 0.2025f, 1);
     }
 
     #endregion
