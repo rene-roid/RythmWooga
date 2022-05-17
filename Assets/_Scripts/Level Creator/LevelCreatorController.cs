@@ -33,6 +33,8 @@ public class LevelCreatorController : MonoBehaviour
     public float MusicTime;
     public bool MusicIsPlaying = true;
 
+    [Header("Save level")]
+    public List<BlockInfo> blockInfoList = new List<BlockInfo>();
 
     void Start()
     {
@@ -243,6 +245,49 @@ public class LevelCreatorController : MonoBehaviour
     {
         MusicSource.Play();
     }
-    
+
     #endregion
+
+    #region Save Blocks
+    public void SortBlockList()
+    {
+        // Sort blockInfoList by start time
+        blockInfoList.Sort((x, y) => x.StartTime.CompareTo(y.StartTime));
+
+        // Bubble sort blockInfoList by start time
+        for (int i = 0; i < blockInfoList.Count; i++)
+        {
+            for (int j = 0; j < blockInfoList.Count - 1; j++)
+            {
+                if (blockInfoList[j].StartTime > blockInfoList[j + 1].StartTime)
+                {
+                    BlockInfo temp = blockInfoList[j];
+                    blockInfoList[j] = blockInfoList[j + 1];
+                    blockInfoList[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class BlockInfo
+{
+    public BlockInfo(int _row, float _startTime, float _endTime, float _speed)
+    {
+        Row = _row;
+        StartTime = _startTime;
+        EndTime = _endTime;
+        Speed = _speed;
+    }
+
+    public GameObject BlockPrefab;
+
+    public int Row;
+    public float StartTime;
+    public float EndTime;
+    public float Speed;
+    public bool Returnable;
 }
