@@ -10,8 +10,10 @@ public class Timer : MonoBehaviour
 
     [Header("Random Block Spawn")]
     public GameObject Block;
+    public GameObject Block2;
     public KeyCode spawnkey = KeyCode.E;
-
+    public KeyCode spawnkey2 = KeyCode.Q;
+    
     void Start()
     {
         
@@ -36,7 +38,12 @@ public class Timer : MonoBehaviour
             BlockController blockController = newBlock.GetComponent<BlockController>();
             blockController.Rail = Random.Range(0, 4);
         }
-        
-        
+
+        if (Input.GetKeyDown(spawnkey2))
+        {
+            GameObject newBlock = Instantiate(Block2);
+            BlockController blockController = newBlock.GetComponent<BlockController>();
+            blockController.Rail = Random.Range(0, 4);
+        }
     }
 }
