@@ -21,14 +21,13 @@ public class RailMovement : MonoBehaviour
     [SerializeField] private float _clock;
 
     private AttackController _attackController;
-
     // Buffer input
     //[SerializeField] private int _bufferInput = 0;
 
     void Start()
     {
         _attackController = GetComponent<AttackController>();
-        
+
         transform.position = Positions[_indexPosition];
     }
 
