@@ -200,10 +200,17 @@ public class LevelCreatorController : MonoBehaviour
     // When click now button set start time to current time
     public void UpdateStartTime()
     {
-        MusicSource.Pause();
-        _startTime = MusicSource.time;
-        StartTimeInputField.text = _startTime.ToString();
-        MusicSource.Play();
+        if (MusicSource.isPlaying)
+        {
+            MusicSource.Pause();
+            _startTime = MusicSource.time;
+            StartTimeInputField.text = _startTime.ToString();
+            MusicSource.Play();   
+        } else
+        {
+            _startTime = MusicSource.time;
+            StartTimeInputField.text = _startTime.ToString();
+        }
     }
     #endregion
 
@@ -398,6 +405,11 @@ public class LevelCreatorController : MonoBehaviour
     {
         for (int i = 0; i < currentBlocks.Count; i++)
         {
+            if (currentBlocks[i].GetComponent<BlockController>().IsActive)
+            {
+                StartCoroutine(SetBlockPositionOnStart(currentBlocks[i].GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row], currentBlocks[i].gameObject));
+                currentBlocks[i].GetComponent<BlockController>().IsActive = false;
+            }
             // Tiempo final, posicion final, velocidad de la nota y tiempo actual
             Vector3 endPos = currentBlocks[i].GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row];
 
@@ -405,7 +417,6 @@ public class LevelCreatorController : MonoBehaviour
             Vector3 direction = endPos - currentBlocks[i].GetComponent<BlockController>().StartRailPositions[saveProperties[i].Row];
             endPos += saveProperties[i].Speed * direction.normalized * (MusicTime - saveProperties[i].EndTime);
 
-            print(endPos);
 
             currentBlocks[i].transform.position = endPos;
         }
@@ -437,30 +448,51 @@ public class LevelCreatorController : MonoBehaviour
     {
         if (CurrentID != -1)
         {
-            for (int i = 0; i < saveProperties.Count; i++)
-            {
-                if (saveProperties[i].ID == CurrentID)
-                {
-                    saveProperties.Remove(saveProperties[CurrentID]);
-                    CurrentID = -1;
-                    BlockName.text = "Block ID: " + CurrentID;
-                    break;
-                }
-            }
-            
             for (int i = 0; i < currentBlockInfo.Count; i++)
             {
                 if (currentBlockInfo[i].ID == CurrentID)
                 {
                     Destroy(currentBlocks[CurrentID]);
                     currentBlocks.RemoveAt(CurrentID);
-                    CurrentID = -1;
-                    BlockName.text = "Block ID: " + CurrentID;
                     currentBlockInfo.RemoveAt(CurrentID);
+                    
                     break;
                 }
             }
+            
+            for (int i = 0; i < saveProperties.Count; i++)
+            {
+                if (saveProperties[i].ID == CurrentID)
+                {
+                    saveProperties.Remove(saveProperties[CurrentID]);
+                    break;
+                }
+            }
+            BlockName.text = "Block ID: " + CurrentID;
+            CurrentID = -1;
         }
+    }
+
+    public void EditSpecificBlock(int id)
+    {
+        // Open Edit UI
+
+        // Set current ID
+        CurrentID = id;
+
+        // Set UI values
+        BlockName.text = "Block ID: " + saveProperties[id].ID;
+        StartTimeInputField.text = "Start Time: " + saveProperties[CurrentID].StartTime;
+        EndTimeInputField.text = "End Time: " + saveProperties[CurrentID].EndTime;
+        SpeedInputField.text = "Speed: " + saveProperties[CurrentID].Speed;
+        Row.text = "Row: " + saveProperties[CurrentID].Row;
+        ReturnableToggle.isOn = saveProperties[CurrentID].Returnable;
+        TypeDropdown.value = saveProperties[CurrentID].BlockPrefab;
+    }
+
+    public void UpdateSpecificBlock(int id)
+    {
+        
     }
 
     #endregion
