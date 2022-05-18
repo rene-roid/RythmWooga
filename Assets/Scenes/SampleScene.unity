@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b7faf1b79052a45beb99a2e371bfb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTime: 1
+  attackTime: 0.2
   isAttacking: 0
 --- !u!65 &344234939
 BoxCollider:
@@ -5543,6 +5543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
+  ID: 0
   Rail: 2
   StartRailPositions:
   - {x: -4, y: 5, z: 13.5}
@@ -5567,6 +5568,8 @@ MonoBehaviour:
   CurrentDistance: 0
   TimeToFullTravel: 0
   TimeToEnd: 0
+  IsActive: 1
+  CanMove: 1
 --- !u!65 &1037515253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6417,6 +6420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
+  ID: 0
   Rail: 1
   StartRailPositions:
   - {x: -4, y: 5.5, z: 9.5}
@@ -6441,6 +6445,8 @@ MonoBehaviour:
   CurrentDistance: 0
   TimeToFullTravel: 0
   TimeToEnd: 0
+  IsActive: 1
+  CanMove: 1
 --- !u!212 &1235865302
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14847,6 +14853,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913632290}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1943433212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943433213}
+  m_Layer: 0
+  m_Name: ---- Animation ----
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1943433213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943433212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5624151, y: -8.205957, z: -8.18407}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1945927738
 GameObject:
   m_ObjectHideFlags: 0
@@ -15535,6 +15571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 499520845070417315}
+  ID: 0
   Rail: 3
   StartRailPositions:
   - {x: -4, y: 5.1, z: 9.5}
@@ -15559,6 +15596,8 @@ MonoBehaviour:
   CurrentDistance: 0
   TimeToFullTravel: 0
   TimeToEnd: 0
+  IsActive: 1
+  CanMove: 1
 --- !u!1001 &680729463917256955
 PrefabInstance:
   m_ObjectHideFlags: 0
