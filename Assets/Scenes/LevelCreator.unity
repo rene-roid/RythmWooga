@@ -3486,6 +3486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94cd4e37a18e49d44a2ca955c128416c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlockName: {fileID: 1885154757}
   Row: {fileID: 815202947}
   StartTimeInputField: {fileID: 2083369263}
   NowButton: {fileID: 154473887}
@@ -3512,6 +3513,9 @@ MonoBehaviour:
   MusicIsPlaying: 1
   saveProperties: []
   _lastMusicTime: 0
+  currentBlocks: []
+  currentBlockInfo: []
+  CurrentID: -1
 --- !u!4 &650051519
 Transform:
   m_ObjectHideFlags: 0
@@ -8453,6 +8457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
+  ID: 0
   Rail: 2
   StartRailPositions:
   - {x: -4, y: 5, z: 13.5}
@@ -8477,6 +8482,8 @@ MonoBehaviour:
   CurrentDistance: 0
   TimeToFullTravel: 0
   TimeToEnd: 0
+  IsActive: 1
+  CanMove: 1
 --- !u!65 &1558940550
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9965,7 +9972,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1802648662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 650051518}
+        m_TargetAssemblyTypeName: LevelCreatorController, Assembly-CSharp
+        m_MethodName: DeleteBlockButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1802648662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11067,7 +11086,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Block Name
+  m_text: 'Block ID: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
