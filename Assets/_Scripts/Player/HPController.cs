@@ -20,7 +20,6 @@ public class HPController : MonoBehaviour
     [SerializeField] private float _damageTimer;
 
     [Header("Health UI")]
-    public Text HealthText;
     public SpriteRenderer HealthBarBG;
     public SpriteRenderer HealthBarFG;
 
@@ -31,8 +30,6 @@ public class HPController : MonoBehaviour
 
     void Update()
     {
-        HealthText.text = "Health: " + _health + "/" + MaxHealth;
-
         Heal();
         Timers();
 
