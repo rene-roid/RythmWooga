@@ -407,14 +407,14 @@ public class LevelCreatorController : MonoBehaviour
         {
             if (currentBlocks[i].GetComponent<BlockController>().IsActive)
             {
-                StartCoroutine(SetBlockPositionOnStart(currentBlocks[i].GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row], currentBlocks[i].gameObject));
+                SetBlockStartPos(BlocksPrefab[currentBlockInfo[i].BlockPrefab].GetComponent<BlockController>().StartRailPositions[saveProperties[i].Row], currentBlocks[i].gameObject);
                 currentBlocks[i].GetComponent<BlockController>().IsActive = false;
             }
             // Tiempo final, posicion final, velocidad de la nota y tiempo actual
-            Vector3 endPos = currentBlocks[i].GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row];
+            Vector3 endPos = BlocksPrefab[currentBlockInfo[i].BlockPrefab].GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row];
 
             // Caluclate direction with start rail pos and end rail pos
-            Vector3 direction = endPos - currentBlocks[i].GetComponent<BlockController>().StartRailPositions[saveProperties[i].Row];
+            Vector3 direction = endPos - BlocksPrefab[currentBlockInfo[i].BlockPrefab].GetComponent<BlockController>().StartRailPositions[saveProperties[i].Row];
             endPos += saveProperties[i].Speed * direction.normalized * (MusicTime - saveProperties[i].EndTime);
 
 
@@ -435,10 +435,15 @@ public class LevelCreatorController : MonoBehaviour
         }
     }
 
-    private IEnumerator SetBlockPositionOnStart(Vector3 position, GameObject gameObject)
+    private void SetBlockStartPos(Vector3 position, GameObject gaemObject)
+    {
+        gaemObject.transform.position = position;
+    }
+
+    private IEnumerator SetBlockPositionOnStart(Vector3 position, GameObject gaemObject)
     {
         yield return new WaitForEndOfFrame();
-        gameObject.transform.position = position;
+        gaemObject.transform.position = position;
     }
 
     #endregion
