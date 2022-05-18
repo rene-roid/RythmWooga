@@ -8,6 +8,7 @@ using TMPro;
 public class LevelCreatorController : MonoBehaviour
 {
     [Header("Block Properties")]
+    public TMP_Text BlockName;
     public TMP_InputField Row;
     public TMP_InputField StartTimeInputField;
     public Button NowButton;
@@ -34,7 +35,15 @@ public class LevelCreatorController : MonoBehaviour
     public bool MusicIsPlaying = true;
 
     [Header("Save level")]
-    public List<BlockInfo> blockInfoList = new List<BlockInfo>();
+    public List<BlockInfo> saveProperties = new List<BlockInfo>();
+
+    [Header("Load level")]
+    [SerializeField] private float _lastMusicTime;
+    public List<GameObject> currentBlocks = new List<GameObject>();
+    public List<BlockInfo> currentBlockInfo = new List<BlockInfo>();
+
+    [Header("UI")]
+    public int CurrentID = -1;
 
     void Start()
     {
@@ -44,6 +53,7 @@ public class LevelCreatorController : MonoBehaviour
     void Update()
     {
         OnMusicUpdate();
+        OnUpdateLoadBlocks();
     }
 
     public void OnValueChange()
@@ -59,6 +69,12 @@ public class LevelCreatorController : MonoBehaviour
         float endTime = (EndTimeInputField.text == "") ? -1 : float.Parse(EndTimeInputField.text);
         float speed = (SpeedInputField.text == "") ? -1 : float.Parse(SpeedInputField.text);
         bool returnable = ReturnableToggle.isOn;
+        int row = (Row.text == "") ? 3 : int.Parse(Row.text);
+
+
+        _row = Mathf.Clamp(row - 1, 0, 4);
+        Row.text = (_row + 1).ToString();
+
         BlockController blockControllerScript = BlocksPrefab[0].GetComponent<BlockController>();
         
         if (startTime >= 0 && endTime > 0 && endTime > startTime)
@@ -172,14 +188,22 @@ public class LevelCreatorController : MonoBehaviour
                 }
             }
         }
+
+        //Row.text = "";
+        //StartTimeInputField.text = "";
+        //EndTimeInputField.text = "";
+        //SpeedInputField.text = "";
+        
     }
 
 
     // When click now button set start time to current time
     public void UpdateStartTime()
     {
+        MusicSource.Pause();
         _startTime = MusicSource.time;
         StartTimeInputField.text = _startTime.ToString();
+        MusicSource.Play();
     }
     #endregion
 
@@ -202,10 +226,11 @@ public class LevelCreatorController : MonoBehaviour
     {
         // Update slider value and text
         if (MusicIsPlaying)
-        {
+        {   
             MusicTime = MusicSource.time;
             MusicSlider.value = MusicTime;
-            MusicTimeInput.text = MusicTime.ToString();       
+            MusicTimeInput.text = MusicTime.ToString();
+
         }
     }
 
@@ -249,21 +274,190 @@ public class LevelCreatorController : MonoBehaviour
     #endregion
 
     #region Save Blocks
-    public void SortBlockList()
+    private void OnStartSave()
     {
-        // Sort blockInfoList by start time
-        blockInfoList.Sort((x, y) => x.StartTime.CompareTo(y.StartTime));
+        
+    }
+    
+    public void AddBlockToSave()
+    {
+        BlockInfo blockInfo = new BlockInfo();
+        blockInfo.ID = saveProperties.Count;
 
-        // Bubble sort blockInfoList by start time
-        for (int i = 0; i < blockInfoList.Count; i++)
+        blockInfo.StartTime = _startTime;
+        blockInfo.EndTime = _endTime;
+        blockInfo.Speed = _speed;
+        blockInfo.Row = _row;
+        blockInfo.Returnable = ReturnableToggle.isOn;
+        blockInfo.BlockPrefab = TypeDropdown.value;
+
+        CurrentID = blockInfo.ID;
+        BlockName.text = "Block ID: " + CurrentID;
+
+        saveProperties.Add(blockInfo);
+        SortBlockList();
+    }
+    
+    private void SortBlockList()
+    {
+        // saveProperties by start time
+        saveProperties.Sort((x, y) => x.StartTime.CompareTo(y.StartTime));
+    }
+
+    #endregion
+
+    #region Load Blocks
+    private void OnUpdateLoadBlocks()
+    {
+        CreateBlocks();
+        UpdateBlockPosition();
+        DeleteBlocksController();
+    }
+
+    private void CreateBlocks()
+    {
+        // Load blocks at the position
+        for (int i = 0; i < saveProperties.Count; i++)
         {
-            for (int j = 0; j < blockInfoList.Count - 1; j++)
+            if (currentBlocks.Count == 0)
             {
-                if (blockInfoList[j].StartTime > blockInfoList[j + 1].StartTime)
+                if (saveProperties[i].StartTime <= MusicTime && saveProperties[i].EndTime > MusicTime)
                 {
-                    BlockInfo temp = blockInfoList[j];
-                    blockInfoList[j] = blockInfoList[j + 1];
-                    blockInfoList[j + 1] = temp;
+                    GameObject newBlock = Instantiate(BlocksPrefab[saveProperties[i].BlockPrefab]);
+                    newBlock.GetComponent<BlockController>().ID = saveProperties[i].ID;
+                    newBlock.GetComponent<BlockController>().CanMove = false;
+                    // Tiempo final, posicion final, velocidad de la nota y tiempo actual
+                    Vector3 endPos = newBlock.GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row];
+
+                    // Caluclate direction with start rail pos and end rail pos
+                    Vector3 direction = endPos - newBlock.GetComponent<BlockController>().StartRailPositions[saveProperties[i].Row];
+
+                    endPos += saveProperties[i].Speed * direction.normalized * (MusicTime - saveProperties[i].EndTime);
+
+                    // Set block position
+                    //StartCoroutine(SetBlockPositionOnStart(endPos, newBlock));
+
+                    BlockInfo blockInfo = new BlockInfo();
+                    blockInfo.ID = saveProperties[i].ID;
+                    blockInfo.StartTime = saveProperties[i].StartTime;
+                    blockInfo.EndTime = saveProperties[i].EndTime;
+                    blockInfo.Speed = saveProperties[i].Speed;
+                    blockInfo.Row = saveProperties[i].Row;
+                    blockInfo.Returnable = saveProperties[i].Returnable;
+                    blockInfo.BlockPrefab = saveProperties[i].BlockPrefab;
+
+                    currentBlockInfo.Add(blockInfo);
+                    currentBlocks.Add(newBlock);
+                }
+            } else
+            {
+                if (saveProperties[i].StartTime <= MusicTime && saveProperties[i].EndTime > MusicTime)
+                {
+                    bool doesExist = false;
+                    for (int j = 0; j < currentBlocks.Count; j++)
+                    {
+                        if (saveProperties[i].ID == currentBlockInfo[j].ID) doesExist = true;
+                    }
+
+                    if (!doesExist)
+                    {
+                        GameObject newBlock = Instantiate(BlocksPrefab[saveProperties[i].BlockPrefab]);
+                        newBlock.GetComponent<BlockController>().ID = saveProperties[i].ID;
+                        newBlock.GetComponent<BlockController>().CanMove = false;
+                        // Tiempo final, posicion final, velocidad de la nota y tiempo actual
+                        Vector3 endPos = newBlock.GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row];
+
+                        // Caluclate direction with start rail pos and end rail pos
+                        Vector3 direction = endPos - newBlock.GetComponent<BlockController>().StartRailPositions[saveProperties[i].Row];
+
+                        endPos += saveProperties[i].Speed * direction.normalized * (MusicTime - saveProperties[i].EndTime);
+
+                        // Set block position
+                        //StartCoroutine(SetBlockPositionOnStart(endPos, newBlock));
+
+                        BlockInfo blockInfo = new BlockInfo();
+                        blockInfo.ID = saveProperties[i].ID;
+                        blockInfo.StartTime = saveProperties[i].StartTime;
+                        blockInfo.EndTime = saveProperties[i].EndTime;
+                        blockInfo.Speed = saveProperties[i].Speed;
+                        blockInfo.Row = saveProperties[i].Row;
+                        blockInfo.Returnable = saveProperties[i].Returnable;
+                        blockInfo.BlockPrefab = saveProperties[i].BlockPrefab;
+
+                        currentBlockInfo.Add(blockInfo);
+                        currentBlocks.Add(newBlock);
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    private void UpdateBlockPosition()
+    {
+        for (int i = 0; i < currentBlocks.Count; i++)
+        {
+            // Tiempo final, posicion final, velocidad de la nota y tiempo actual
+            Vector3 endPos = currentBlocks[i].GetComponent<BlockController>().EndRailPositions[saveProperties[i].Row];
+
+            // Caluclate direction with start rail pos and end rail pos
+            Vector3 direction = endPos - currentBlocks[i].GetComponent<BlockController>().StartRailPositions[saveProperties[i].Row];
+            endPos += saveProperties[i].Speed * direction.normalized * (MusicTime - saveProperties[i].EndTime);
+
+            print(endPos);
+
+            currentBlocks[i].transform.position = endPos;
+        }
+    }
+
+    private void DeleteBlocksController()
+    {
+        for (int i = 0; i < currentBlocks.Count; i++)
+        {
+            if (currentBlockInfo[i].StartTime > MusicTime || currentBlockInfo[i].EndTime < MusicTime)
+            {
+                Destroy(currentBlocks[i]);
+                currentBlocks.Remove(currentBlocks[i]);
+                currentBlockInfo.Remove(currentBlockInfo[i]);
+            }
+        }
+    }
+
+    private IEnumerator SetBlockPositionOnStart(Vector3 position, GameObject gameObject)
+    {
+        yield return new WaitForEndOfFrame();
+        gameObject.transform.position = position;
+    }
+
+    #endregion
+
+    #region Blocks UI
+    public void DeleteBlockButton()
+    {
+        if (CurrentID != -1)
+        {
+            for (int i = 0; i < saveProperties.Count; i++)
+            {
+                if (saveProperties[i].ID == CurrentID)
+                {
+                    saveProperties.Remove(saveProperties[CurrentID]);
+                    CurrentID = -1;
+                    BlockName.text = "Block ID: " + CurrentID;
+                    break;
+                }
+            }
+            
+            for (int i = 0; i < currentBlockInfo.Count; i++)
+            {
+                if (currentBlockInfo[i].ID == CurrentID)
+                {
+                    Destroy(currentBlocks[CurrentID]);
+                    currentBlocks.RemoveAt(CurrentID);
+                    CurrentID = -1;
+                    BlockName.text = "Block ID: " + CurrentID;
+                    currentBlockInfo.RemoveAt(CurrentID);
+                    break;
                 }
             }
         }
@@ -275,19 +469,28 @@ public class LevelCreatorController : MonoBehaviour
 [System.Serializable]
 public class BlockInfo
 {
-    public BlockInfo(int _row, float _startTime, float _endTime, float _speed)
-    {
-        Row = _row;
-        StartTime = _startTime;
-        EndTime = _endTime;
-        Speed = _speed;
-    }
-
-    public GameObject BlockPrefab;
+    public int ID;
+    public int BlockPrefab;
 
     public int Row;
     public float StartTime;
     public float EndTime;
     public float Speed;
     public bool Returnable;
+
+    public BlockInfo()
+    {
+        
+    }
+
+    public BlockInfo(int _ID, int _row, float _startTime, float _endTime, float _speed, bool _returnable, int _blockPrefab)
+    {
+        ID = _ID;
+        Row = _row;
+        StartTime = _startTime;
+        EndTime = _endTime;
+        Speed = _speed;
+        Returnable = _returnable;
+        BlockPrefab = _blockPrefab;
+    }
 }

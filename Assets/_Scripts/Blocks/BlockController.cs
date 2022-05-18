@@ -6,6 +6,7 @@ public class BlockController : MonoBehaviour
 {
     [Header("Block Settings")]
     public SpriteRenderer Sprite;
+    public int ID;
     
     [Header("Positions")]
     [Range(0, 4)] public int Rail; // Set what rail the block is on
@@ -31,6 +32,10 @@ public class BlockController : MonoBehaviour
     public float TimeToFullTravel; // Time to travel the full distance
     public float TimeToEnd; // Time left to reach the end position
 
+    [Header("Other")]
+    public bool IsActive = true;
+    public bool CanMove = true;
+
     #region Unity Functions
     void Start()
     {
@@ -39,12 +44,12 @@ public class BlockController : MonoBehaviour
 
     void Update()
     {
+        if (!IsActive) return;
         OnUpdate();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        print("CACA");
         OnTrigger(other);
     }
 
@@ -60,6 +65,7 @@ public class BlockController : MonoBehaviour
 
     public void OnUpdate()
     {
+        if (!IsActive) return;
         Movement();
         MathCalc();
     }
@@ -74,6 +80,7 @@ public class BlockController : MonoBehaviour
     #region Movement
     public void Movement()
     {
+        if (!CanMove) return;
         if (IsReturnable)
         {
             if (isReturning)
@@ -105,15 +112,12 @@ public class BlockController : MonoBehaviour
 
     private void DetectHit(Collider other)
     {
-        print("VULBA");
         if (other.tag == "Player")
         {
-            print("PENE");
             // Detect if the player is attacking
             if (other.GetComponent<AttackController>().isAttacking)
             {
                 isReturning = true;
-                print("PITO CACA CULO");
             }
         }
     }
