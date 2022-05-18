@@ -20,8 +20,8 @@ public class HPController : MonoBehaviour
     [SerializeField] private float _damageTimer;
 
     [Header("Health UI")]
-    public SpriteRenderer HealthBarBG;
-    public SpriteRenderer HealthBarFG;
+    public Image HealthBarBG;
+    public Image HealthBarFG;
 
     void Awake()
     {
@@ -117,9 +117,10 @@ public class HPController : MonoBehaviour
     {
         // Change health bar size
         float healthBarSize = _health / MaxHealth;
-        healthBarSize = Mathf.Clamp(healthBarSize, 0, 0.9027298f);
+        healthBarSize = Mathf.Clamp(healthBarSize, 0, 1);
 
-        HealthBarBG.transform.localScale = new Vector3(healthBarSize, 0.2025f, 1);
+        // Lerp healthBarSize.fillAmount
+        HealthBarFG.fillAmount = Mathf.Lerp(HealthBarFG.fillAmount, healthBarSize, Time.deltaTime * 10);
     }
 
     #endregion
