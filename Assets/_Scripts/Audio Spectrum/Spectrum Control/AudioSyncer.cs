@@ -16,10 +16,27 @@ public class AudioSyncer : MonoBehaviour
     [SerializeField] private float _timer;
 
     public bool IsBeat;
+    public bool RandomVars = false;
+
+    private void Awake()
+    {
+        if (RandomVars)
+        {
+            DoesHaveRandom();
+        }
+    }
 
     void Start()
     {
-        
+        Bias += Random.Range(-1, 1);
+        TimeStep += Random.Range(-.1f, .1f);
+        TimeToBeat += Random.Range(-.1f, .1f);
+        RestTime += Random.Range(-1, 1);
+    }
+
+    private void DoesHaveRandom()
+    {
+
     }
 
     void Update()

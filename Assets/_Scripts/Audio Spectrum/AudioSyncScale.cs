@@ -52,5 +52,4 @@ public class AudioSyncScale : AudioSyncer
         // Stop beat
         IsBeat = false;
     }
-
 }

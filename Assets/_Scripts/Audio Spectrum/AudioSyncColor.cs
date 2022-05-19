@@ -9,6 +9,8 @@ public class AudioSyncColor : AudioSyncer
     public Color[] BeatColors;
     public Color RestColor = Color.white;
 
+    public bool RandomizeColors = false;
+
     public Image ChanginSprite;
 
     // Private variables
@@ -18,6 +20,20 @@ public class AudioSyncColor : AudioSyncer
     private void Start()
     {
         ChanginSprite = GetComponent<Image>();
+
+        if (RandomizeColors) ShuffleArray(BeatColors);
+    }
+
+    // ShuffleArray
+    public void ShuffleArray(Color[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            Color tmp = array[i];
+            int r = Random.Range(i, array.Length);
+            array[i] = array[r];
+            array[r] = tmp;
+        }
     }
 
     public override void OnUpdate()
