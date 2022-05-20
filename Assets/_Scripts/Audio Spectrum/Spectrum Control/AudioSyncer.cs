@@ -28,15 +28,15 @@ public class AudioSyncer : MonoBehaviour
 
     void Start()
     {
-        Bias += Random.Range(-1, 1);
-        TimeStep += Random.Range(-.1f, .1f);
-        TimeToBeat += Random.Range(-.1f, .1f);
-        RestTime += Random.Range(-1, 1);
+        
     }
 
     private void DoesHaveRandom()
     {
-
+        Bias += Random.Range(-1, 1);
+        TimeStep += Random.Range(-.1f, .1f);
+        TimeToBeat += Random.Range(-.1f, .1f);
+        RestTime += Random.Range(-1, 1);
     }
 
     void Update()
