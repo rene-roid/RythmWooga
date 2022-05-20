@@ -13,6 +13,9 @@ public class Timer : MonoBehaviour
     public GameObject Block2;
     public KeyCode spawnkey = KeyCode.E;
     public KeyCode spawnkey2 = KeyCode.Q;
+
+    public bool Spawn = true;
+    public float timer = 0;
     
     void Start()
     {
@@ -22,6 +25,18 @@ public class Timer : MonoBehaviour
     private void Update()
     {
         SpawnBlock();
+
+        // Instantiate wall every 0.5 seconds
+        if (timer < 0.15f)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            GameObject block = Instantiate(Block2);
+            block.GetComponent<BlockController>().Rail = Random.Range(0, 5);
+            timer = 0;
+        }
     }
 
     void FixedUpdate()
