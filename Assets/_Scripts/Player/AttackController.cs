@@ -7,12 +7,14 @@ public class AttackController : MonoBehaviour
     [Header("Attack")]
     public float attackTime; // For how long the attack lasts
     public bool isAttacking; // Is the player attacking?
+    public Animator PlayerAnimator;
 
     private RailMovement _railMovement;
 
     void Start()
     {
         _railMovement = GetComponent<RailMovement>();
+        PlayerAnimator = GetComponent<Animator>();
     }
 
     void Update()
@@ -31,6 +33,7 @@ public class AttackController : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        PlayerAnimator.SetTrigger("Attack");
         isAttacking = true;
 
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
