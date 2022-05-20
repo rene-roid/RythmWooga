@@ -13,6 +13,10 @@ public class RailMovement : MonoBehaviour
     public float JumpTime;
     public bool IsGrounded = true;
 
+    [Header("Animations")]
+    public Animator PlayerAnimator;
+    public SpriteRenderer PlayerSpriteRenderer;
+
     // Private variables
     [Header("Private variables")]
     [SerializeField] private int _indexPosition;
@@ -29,6 +33,8 @@ public class RailMovement : MonoBehaviour
         _attackController = GetComponent<AttackController>();
 
         transform.position = Positions[_indexPosition];
+        PlayerAnimator = GetComponent<Animator>();
+        PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -59,11 +65,13 @@ public class RailMovement : MonoBehaviour
         {
             _lastIndex = _indexPosition;
             _indexPosition -= 1;
+            PlayerSpriteRenderer.flipX = true;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             _lastIndex = _indexPosition;
             _indexPosition += 1;
+            PlayerSpriteRenderer.flipX = false;
         }
 
         // Check if the index is out of range
@@ -82,6 +90,7 @@ public class RailMovement : MonoBehaviour
 
     private IEnumerator Movement(Vector3[] _target)
     {
+        PlayerAnimator.SetTrigger("Dash");
         Vector3 curr = transform.position;
         Vector3 initPos = curr;
 
