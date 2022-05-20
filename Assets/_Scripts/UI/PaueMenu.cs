@@ -22,7 +22,7 @@ public class PaueMenu : MonoBehaviour
         {
             if (IsPaused)
             {
-                StartCoroutine(CountDown());
+                CountDown1();
             }
             else
             {
@@ -39,6 +39,11 @@ public class PaueMenu : MonoBehaviour
         PauseMenuUI.SetActive(true);
         buttons.SetActive(true);
         countDown.text = "";
+    }
+
+    public void CountDown1()
+    {
+        StartCoroutine(CountDown());
     }
 
     public void ResumeGame()
