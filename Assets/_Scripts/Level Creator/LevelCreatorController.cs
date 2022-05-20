@@ -4,6 +4,8 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+using System.Text;
 
 public class LevelCreatorController : MonoBehaviour
 {
@@ -318,7 +320,7 @@ public class LevelCreatorController : MonoBehaviour
     {
         CreateBlocks();
         UpdateBlockPosition();
-        DeleteBlocksController();
+        //DeleteBlocksController();
     }
 
     private void CreateBlocks()
@@ -501,6 +503,34 @@ public class LevelCreatorController : MonoBehaviour
     }
 
     #endregion
+
+    #region Serialize to JSON
+    public void SerializeToJson()
+    {
+        SaveBlockInfoClass saveBlockInfoClass = new SaveBlockInfoClass();
+        saveBlockInfoClass.list = saveProperties;
+        
+        // Serialize saveProperties to json
+        string json = JsonUtility.ToJson(saveBlockInfoClass);
+        File.WriteAllText(Application.dataPath + "/Resources/Saves/DioKing.json", json);
+    }
+
+    public void LoadJson()
+    {
+        // Load json
+        string json = File.ReadAllText(Application.dataPath + "/Resources/Saves/DioKing.json");
+        SaveBlockInfoClass saveBlockInfoClass = JsonUtility.FromJson<SaveBlockInfoClass>(json);
+
+        // Load saveProperties
+        saveProperties = saveBlockInfoClass.list;
+    }
+
+    #endregion
+}
+
+public class SaveBlockInfoClass
+{
+    public List<BlockInfo> list = new List<BlockInfo>();
 }
 
 [System.Serializable]
