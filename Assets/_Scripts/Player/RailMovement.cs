@@ -121,8 +121,8 @@ public class RailMovement : MonoBehaviour
     private IEnumerator PlayerJump()
     {
         IsGrounded = false;
-
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        PlayerAnimator.SetTrigger("Jump");
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
         yield return new WaitForSeconds(JumpTime);
         StopJump();
     }

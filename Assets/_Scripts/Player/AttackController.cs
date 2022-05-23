@@ -24,7 +24,7 @@ public class AttackController : MonoBehaviour
 
     private void InputController()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _railMovement.IsGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && _railMovement.IsGrounded && !isAttacking)
         {
             StopCoroutine(Attack());
             StartCoroutine(Attack());
@@ -36,7 +36,7 @@ public class AttackController : MonoBehaviour
         PlayerAnimator.SetTrigger("Attack");
         isAttacking = true;
 
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         yield return new WaitForSeconds(attackTime);
         
         isAttacking = false;

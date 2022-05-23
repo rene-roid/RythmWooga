@@ -9,7 +9,7 @@ public class RotatingTriangle : MonoBehaviour
     public float BaseSpeed = 20f;
     public float Angle = 0f;
 
-    public float LevelSelected = -1;
+    public static float LevelSelected = -1;
     public GameObject[] Levels;
 
     [Header("Objects")]

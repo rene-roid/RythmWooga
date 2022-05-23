@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/LevelSelector.unity
+    guid: 8e7ae75ba77436d44884dcf81d91f072
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tutorial.unity
+    guid: 6f1de53fad1772f478a9961f69e55fb2
+  - enabled: 1
+    path: Assets/Scenes/Levels/1_Dio Fight.unity
+    guid: 2d2e8c8d6c7a4c8429be67142449675b
+  - enabled: 1
+    path: Assets/Scenes/Levels/2_Mori Fight.unity
+    guid: 8fbe624f063d43a4ea908d3bf93f364d
   m_configObjects: {}

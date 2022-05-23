@@ -19,6 +19,8 @@ public class HPController : MonoBehaviour
     public float DamageRate; // Rate at which player can take damage
     [SerializeField] private float _damageTimer;
 
+    public GameObject deathGUI;
+
     [Header("Health UI")]
     public Image HealthBarBG;
     public Image HealthBarFG;
@@ -61,6 +63,17 @@ public class HPController : MonoBehaviour
             _damageTimer = 0;
             _regenAfterTimer = 0;
             _regenRateTimer = 0;
+
+            if (_health <= 0)
+            {
+                _health = 0;
+                deathGUI.SetActive(true);
+                gameObject.SetActive(false);
+
+                // Get the scene audio source and stop the song
+                AudioSource sceneAudioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+                sceneAudioSource.Stop();
+            }
         }
     }
 

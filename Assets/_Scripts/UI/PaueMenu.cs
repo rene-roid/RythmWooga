@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PaueMenu : MonoBehaviour
@@ -10,6 +11,7 @@ public class PaueMenu : MonoBehaviour
     public GameObject PauseMenuUI;
     public TMP_Text countDown;
     public GameObject buttons;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -31,9 +33,21 @@ public class PaueMenu : MonoBehaviour
         }
     }
 
+    public void ExitLevel()
+    {
+        ResumeGame();
+        SceneManager.LoadScene(0);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     private void PauseGame()
     {
         // Pause the game
+        audioSource.Pause();
         Time.timeScale = 0;
         IsPaused = true;
         PauseMenuUI.SetActive(true);
@@ -52,6 +66,7 @@ public class PaueMenu : MonoBehaviour
         Time.timeScale = 1;
         IsPaused = false;
         PauseMenuUI.SetActive(false);
+        audioSource.Play();
     }
 
     // Count to 3 and show it in countDown.text
