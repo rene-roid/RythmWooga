@@ -54,7 +54,8 @@ public class HPController : MonoBehaviour
         // Cooldown between damage
         if (_damageTimer >= DamageRate)
         {
-            if (other.GetComponent<BlockController>().IsJumpable && !gameObject.GetComponent<RailMovement>().IsGrounded) return;
+            if ((other.GetComponent<BlockController>().IsJumpable && !gameObject.GetComponent<RailMovement>().IsGrounded) ||
+                other.GetComponent<BlockController>().IsReturnable && gameObject.GetComponent<AttackController>().isAttacking) return;
             
             ShowHealthBar();
             // Take damage
