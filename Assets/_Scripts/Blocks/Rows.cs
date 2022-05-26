@@ -8,8 +8,11 @@ public class Rows : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public GameObject notePrefab; // What note to spawn
+<<<<<<< HEAD
     public float Speed;
 
+=======
+>>>>>>> parent of 506a8c0 (fix animation DIO)
     List<Note> notes = new List<Note>(); // List with all notes in the row
     public List<double> timeStamps = new List<double>(); // Time stamps of notes in the row
 

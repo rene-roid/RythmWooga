@@ -38,6 +38,7 @@ public class DiscordController : MonoBehaviour
 
         if (StartTimestamp == -1) StartTimestamp = ToUnixTime();
     }
+    
     private void CheckDiscord()
     {
         // Check if the Discord application is running
@@ -63,62 +64,38 @@ public class DiscordController : MonoBehaviour
 
             UserActivity();
         }
-    }
 
-    private IEnumerator UpdatePresence()
-    {
-        while (true)
-        {
-            if (_isConnected)
-            {
-                // Get actual scene index
-                int sceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-                
-                if (sceneIndex == 0)
-                {
-                    UserActivity();
-                } else if (sceneIndex == 2)
-                {
-                    _activity.State = "Fighting DIO";
-                    _activity.Details = "In game";
-
-                    //_activity.Timestamps.Start = StartTimestamp;
-
-                    _activity.Assets.LargeImage = "dio";
-                    //_activity.Assets.LargeText = LargeImageText;
-
-                    //_activity.Assets.SmallImage = SmallImageKey;
-                    //_activity.Assets.SmallText = SmallImageText;
-
-                    _activityManager.UpdateActivity(_activity, (res) => {
-                        if (res == Discord.Result.Ok)
-                        {
-                            Debug.Log("Actualizado correctamente");
-                        }
-                    });
-                }
-                
-
-            } else
-            {
-                discord.Dispose();
-            }
-            yield return new WaitForSeconds(5);
-        }
     }
 
     private void UserActivity()
     {
-        _activity.State = State;
-        _activity.Details = Details;
+        //activity.Party.Size.CurrentSize = 0;
+        //activity.Party.Size.MaxSize = 0;
 
-        _activity.Timestamps.Start = StartTimestamp;
+        //_activity.State = "Jugando";
+        //_activity.Timestamps.Start = 0;
 
-        _activity.Assets.LargeImage = LargeImageKey;
-        _activity.Assets.LargeText = LargeImageText;
+        //_activity.Assets.SmallImage = "";
+        //_activity.Assets.SmallText = "";
+
+        //_activity.Assets.LargeImage = "logo";
         
-        _activity.Assets.SmallImage = SmallImageKey;
-        _activity.Assets.SmallText = SmallImageText;
+        _activity = new Discord.Activity
+        {
+            State = State,
+            Details = Details,
+            Timestamps = new Discord.ActivityTimestamps
+            {
+                Start = StartTimestamp
+            },
+            Assets = new Discord.ActivityAssets
+            {
+                LargeImage = LargeImageKey,
+                LargeText = LargeImageText,
+                SmallImage = SmallImageKey,
+                SmallText = SmallImageText
+            }
+        };
 
         //_activity.Assets.LargeText = LargeImageText;
 

@@ -126,16 +126,10 @@ public class BlockController : MonoBehaviour
     {
         // Move block
         transform.position = Vector3.MoveTowards(transform.position, StartRailPositions[Rail], Speed * 4 * Time.deltaTime);
-        if (transform.position == StartRailPositions[Rail])
-        {
-            Destroy(gameObject);
-            // Shake the camera during .1 seconds
-            Camera.main.GetComponent<CameraController>().Shake(.1f);
-        }
     }
 
     #endregion
-
+    
     public void MathCalc()
     {
         // Calculate distance from start to end
