@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 4044731926341728436}
+  ID: 0
   Rail: 2
   StartRailPositions:
   - {x: -4, y: 5.1, z: 9.5}
@@ -121,6 +122,8 @@ MonoBehaviour:
   CurrentDistance: 0
   TimeToFullTravel: 0
   TimeToEnd: 0
+  IsActive: 1
+  CanMove: 1
 --- !u!65 &4044731926341728438
 BoxCollider:
   m_ObjectHideFlags: 0

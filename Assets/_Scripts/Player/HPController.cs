@@ -20,6 +20,7 @@ public class HPController : MonoBehaviour
     [SerializeField] private float _damageTimer;
 
     public GameObject deathGUI;
+    public GameObject winGUI;
 
     [Header("Health UI")]
     public Image HealthBarBG;
@@ -27,6 +28,9 @@ public class HPController : MonoBehaviour
 
     void Awake()
     {
+        winGUI.SetActive(false);
+        deathGUI.SetActive(false);
+        
         _health = MaxHealth;
     }
 

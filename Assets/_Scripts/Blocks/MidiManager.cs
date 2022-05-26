@@ -15,9 +15,10 @@ public class MidiManager : MonoBehaviour
     public float songDelayInSeconds;
     public PlayableDirector director;
 
+    public float blockEspid;
+
     public string fileLocation;
     public static MidiFile midiFile;
-
     void Start()
     {
         Instance = this;
@@ -38,6 +39,7 @@ public class MidiManager : MonoBehaviour
 
         // Fill row array
         foreach (var lane in lanes) lane.SetTimeStamps(array);
+        foreach (var lane in lanes) lane.Speed = blockEspid;
 
         // After songDelayInSeconds seconds, start playing the song
         Invoke(nameof(StartSong), songDelayInSeconds);
@@ -59,6 +61,6 @@ public class MidiManager : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 }

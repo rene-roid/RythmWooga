@@ -8,6 +8,7 @@ public class Rows : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public GameObject notePrefab; // What note to spawn
+    public float Speed;
 
     List<Note> notes = new List<Note>(); // List with all notes in the row
     public List<double> timeStamps = new List<double>(); // Time stamps of notes in the row
@@ -44,6 +45,7 @@ public class Rows : MonoBehaviour
                 print("Note: " + spawnIndex + " at " + timeStamps[spawnIndex] + " in the row" + row);
                 GameObject newBlock = Instantiate(notePrefab);
                 newBlock.GetComponent<BlockController>().Rail = row;
+                newBlock.GetComponent<BlockController>().Speed = Speed;
 
                 //var note = Instantiate(notePrefab, transform);
                 spawnIndex++;
