@@ -3605,6 +3605,7 @@ GameObject:
   - component: {fileID: 297005687}
   - component: {fileID: 297005686}
   - component: {fileID: 297005689}
+  - component: {fileID: 297005690}
   m_Layer: 0
   m_Name: DIO
   m_TagString: Untagged
@@ -3719,6 +3720,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &297005690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297005685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870210d7678f34e47934260bf5a3adf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winUI: {fileID: 369576222}
 --- !u!1 &301706137
 GameObject:
   m_ObjectHideFlags: 0
@@ -4631,7 +4645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &369576223
 RectTransform:
   m_ObjectHideFlags: 0
