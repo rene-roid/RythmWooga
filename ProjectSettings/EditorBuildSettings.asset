@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/1_Dio Fight.unity
     guid: 2d2e8c8d6c7a4c8429be67142449675b
   - enabled: 1
-    path: Assets/Scenes/Levels/2_Mori Fight.unity
-    guid: 8fbe624f063d43a4ea908d3bf93f364d
+    path: Assets/Scenes/Levels/2_YourMori Fight.unity
+    guid: 7cc8ad9ec473ebb4eb1b3000f3ac48a4
   m_configObjects: {}
