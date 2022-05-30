@@ -1707,6 +1707,8 @@ RectTransform:
   - {fileID: 961553372}
   - {fileID: 183679211}
   - {fileID: 368225653}
+  - {fileID: 589996848}
+  - {fileID: 1379065797}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1715,6 +1717,86 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &589996847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 589996848}
+  - component: {fileID: 589996850}
+  - component: {fileID: 589996849}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &589996848
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589996847}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 545380899}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -515, y: 296}
+  m_SizeDelta: {x: 839.26, y: 198.8143}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &589996849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589996847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 32
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 97
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '"WARNING: This game may potentially trigger seizures for people with photosensitive
+    epilepsy. Viewer discretion is advised."'
+--- !u!222 &589996850
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589996847}
+  m_CullTransparentMesh: 1
 --- !u!1 &651781572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2721,6 +2803,87 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1379065796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379065797}
+  - component: {fileID: 1379065799}
+  - component: {fileID: 1379065798}
+  m_Layer: 5
+  m_Name: Text (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1379065797
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379065796}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 545380899}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -515, y: 66.215}
+  m_SizeDelta: {x: 839.26, y: 260.7551}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1379065798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379065796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 32
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 97
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Disclaimer: \nThis is a free fangame. I'm not affiliated nor endorsed
+    by Hololive, Cover Corp, Calliope Mori, Kanaria or \u3057\u3083\u308A\u3093\u30B8\u30E7\u30FC\u30B9\u30BF\u30FC
+    in any capacity."
+--- !u!222 &1379065799
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379065796}
+  m_CullTransparentMesh: 1
 --- !u!1 &1445710916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,6 +3070,20 @@ PlayableDirector:
     value: {fileID: 368225652}
   - key: {fileID: 6628725892982963597, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
     value: {fileID: 545380895}
+  - key: {fileID: -9170051234236210318, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
+    value: {fileID: 589996847}
+  - key: {fileID: 4253485148048017782, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
+    value: {fileID: 1379065796}
+  - key: {fileID: -1901972215306819509, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
+    value: {fileID: 1689971921}
+  - key: {fileID: -7951712828948483055, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
+    value: {fileID: 1777400053}
+  - key: {fileID: 6539472140930441063, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
+    value: {fileID: 429828459}
+  - key: {fileID: 4908520965001959045, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
+    value: {fileID: 1013577519}
+  - key: {fileID: 2544457019055151064, guid: a13b3f5531c2f2043971d3c4787c953e, type: 2}
+    value: {fileID: 1478102091}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1467325080
