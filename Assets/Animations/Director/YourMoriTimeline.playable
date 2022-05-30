@@ -10004,7 +10004,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 155.08333
+    m_StopTime: 195.81667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -12711,7 +12711,14 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 195.81667
+    functionName: OnWin
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
 --- !u!114 &5975217793103377017
 MonoBehaviour:
   m_ObjectHideFlags: 1
