@@ -2874,8 +2874,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Disclaimer: \nThis is a free fangame. I'm not affiliated nor endorsed
-    by Hololive, Cover Corp, Calliope Mori, Kanaria or \u3057\u3083\u308A\u3093\u30B8\u30E7\u30FC\u30B9\u30BF\u30FC
-    in any capacity."
+    by Hololive, Cover Corp, Calliope Mor, Sh\u016Beishai, Hirohiko Araki, Kanaria
+    or \u3057\u3083\u308A\u3093\u30B8\u30E7\u30FC\u30B9\u30BF\u30FC in any capacity."
 --- !u!222 &1379065799
 CanvasRenderer:
   m_ObjectHideFlags: 0
